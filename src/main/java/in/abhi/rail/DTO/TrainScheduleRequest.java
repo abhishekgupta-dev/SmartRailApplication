@@ -17,7 +17,7 @@ public class TrainScheduleRequest {
 	
 	private Long StationId;
 	
-	private LocalTime arival;
+	private LocalTime arrival;
 	
 	private LocalTime departure;
 	

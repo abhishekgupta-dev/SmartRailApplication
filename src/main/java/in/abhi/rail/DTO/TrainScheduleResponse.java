@@ -19,7 +19,9 @@ public class TrainScheduleResponse {
 	
 	private Long stationId;
 	
-	private LocalTime arival;
+	private LocalTime arrival;
+	
+	private LocalTime departure;
 	
 	private Integer stopSequence;
 }
