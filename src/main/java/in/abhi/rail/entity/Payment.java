@@ -1,13 +1,13 @@
-
 package in.abhi.rail.entity;
 
-import java.time.LocalTime;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,23 +18,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TrainSchedule {
-	
+@Table(name="Payments")
+public class Payment {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private LocalTime arrivalTime;
+	private BigDecimal amount;
 	
-	private LocalTime departureTime;
+	private String paymentMethod;
 	
-	private Integer stopSequence;
+	private String paymentStatus;
+	
+	private String transactionId;
 	
 	@ManyToOne
-	private Train train;
-	
-	@ManyToOne
-	private Station station;
-	
-
+	private Reservation reservation;
 }

@@ -1,40 +1,36 @@
-
 package in.abhi.rail.entity;
-
-import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+@Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class TrainSchedule {
+@Table(name="Reservations")
+public class Reservation {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private LocalTime arrivalTime;
+	private Integer seatNumber;
 	
-	private LocalTime departureTime;
-	
-	private Integer stopSequence;
+	private String status;
 	
 	@ManyToOne
-	private Train train;
+	private User user;
 	
 	@ManyToOne
-	private Station station;
-	
+	private TrainSchedule trainSchedule;
 
 }

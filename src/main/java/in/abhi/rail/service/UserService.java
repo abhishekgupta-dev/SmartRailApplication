@@ -19,7 +19,7 @@ public class UserService {
 		this.userRepository=userRepository;
 	}
 	
-	public User saveUser(UserRequest request) {
+	public UserResponse saveUser(UserRequest request) {
 		
 		User user = new User();
 		
@@ -27,7 +27,12 @@ public class UserService {
 		user.setEmail(request.getEmail());
 		user.setPassword(request.getPassword());
 		
-		return  userRepository.save(user);
+		User savedUser =  userRepository.save(user);
+		return new UserResponse(
+				savedUser.getId(),
+				savedUser.getName(),
+				savedUser.getEmail()
+				);
 	}
 	
 	public List<UserResponse> getAllUsers(){

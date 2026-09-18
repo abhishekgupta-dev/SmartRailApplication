@@ -11,7 +11,7 @@ public interface TrainScheduleService {
 	
 	List<TrainScheduleResponse> getAllTrainSchedule();
 	
-	TrainScheduleResponse getTrainSchedule(Long id);
+	TrainScheduleResponse getTrainScheduleById(Long id);
 	
 	TrainScheduleResponse updateTrainSchedule(Long id , TrainScheduleRequest request);
 	

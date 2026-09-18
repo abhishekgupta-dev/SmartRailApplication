@@ -1,5 +1,6 @@
 package in.abhi.rail.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import in.abhi.rail.DTO.UserRequest;
 import in.abhi.rail.DTO.UserResponse;
 import in.abhi.rail.entity.User;
+import in.abhi.rail.payload.ApiResponse;
 import in.abhi.rail.service.UserService;
 import jakarta.validation.Valid;
 
@@ -30,38 +32,81 @@ public class UserController {
 		
 		this.userService=userService;
 	}
-	
+	//===========================================post =====================================
 	@PostMapping
-	public User createUser(@Valid @RequestBody UserRequest request) {
+	public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody UserRequest request) {
 		
-		return userService.saveUser(request);
+		UserResponse user = userService.saveUser(request);
+		
+		ApiResponse<UserResponse> response = new ApiResponse<>(
+				true,
+				LocalDateTime.now(),
+				HttpStatus.OK.value(),
+				"User save  Successfuly",
+				user);
+		return ResponseEntity.ok(response);
 	}
-	
+	//================================All user ====================================
 	@GetMapping
-	public List<UserResponse> getAllUser( ){
+	public ResponseEntity<ApiResponse<List<UserResponse>>> getAllUser( ){
 		
-		return userService.getAllUsers();
+		List<UserResponse> user = userService.getAllUsers();
+		ApiResponse<List<UserResponse>>response = new ApiResponse<>(
+				true,
+				LocalDateTime.now(),
+				HttpStatus.OK.value(),
+				" All User Fatch Successfuly",
+				user);
+		return ResponseEntity.ok(response);
 	}
-	
+	//===================================by id ========================================
 	@GetMapping("/{id}")
-	public UserResponse getUserById(@PathVariable Long id) {
+	public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable Long id) {
 		
-		return userService.getUserById(id);
+       UserResponse user = userService.getUserById(id);
+		
+		if(user==null) {
+			ResponseEntity.notFound().build();
+		}
+		
+		ApiResponse<UserResponse> response = new ApiResponse<>(
+				true,
+				LocalDateTime.now(),
+				HttpStatus.OK.value(),
+				"User Fatch Successfuly",
+				user);
+		return ResponseEntity.ok(response);
 	}
-	
+	//=============================================Update=============================
 	@PutMapping("/{id}")
-	public UserResponse updateUser(
+	public ResponseEntity<ApiResponse<UserResponse>> updateUser(
 			@PathVariable Long id ,
 			@Valid @RequestBody UserRequest request) {
 		
-		return userService.updateUser(id,request);
+        UserResponse user = userService.updateUser(id,request);
+		
+		ApiResponse<UserResponse> response = new ApiResponse<>(
+				true,
+				LocalDateTime.now(),
+				HttpStatus.OK.value(),
+				"User Updated  Successfuly",
+				user);
+		return ResponseEntity.ok(response);
+		
 	}
-	
+	//========================================DElete===================================
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUser(@PathVariable Long id ) {
+	public ResponseEntity<ApiResponse<Object>> deleteUser(@PathVariable Long id ) {
 		
 		userService.deleteUser(id);
+		ApiResponse<Object> response = new ApiResponse<>(
+				true,
+				LocalDateTime.now(),
+				HttpStatus.OK.value(),
+				"User Deleted  Successfuly",
+			null);
+		return ResponseEntity.ok(response);
 	}
 
 }

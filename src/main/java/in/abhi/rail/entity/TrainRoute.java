@@ -1,9 +1,5 @@
-
 package in.abhi.rail.entity;
 
-import java.time.LocalTime;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,24 +13,17 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class TrainSchedule {
-	
+public class TrainRoute {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private LocalTime arrivalTime;
-	
-	private LocalTime departureTime;
-	
-	private Integer stopSequence;
+	private Integer routeSequence;
 	
 	@ManyToOne
 	private Train train;
 	
 	@ManyToOne
 	private Station station;
-	
 
 }
