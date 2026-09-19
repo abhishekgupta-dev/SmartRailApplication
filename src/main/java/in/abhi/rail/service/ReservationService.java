@@ -17,4 +17,7 @@ public interface ReservationService {
 	ReservationResponse updateReservation(Long id, ReservationRequest request);
 	
 	void deleteReservation(Long id);
+
+	ReservationResponse cancelReservation(Long id);
+
 }

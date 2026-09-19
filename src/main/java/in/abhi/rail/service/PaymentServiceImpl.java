@@ -27,6 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
 		this.reservationRepository=reservationRepository;
 	}
 	
+	@Override
 	public PaymentResponse createPayment(PaymentRequest request) {
 		
 		Reservation reservation = reservationRepository.findById(request.getReservationId())
@@ -47,6 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	//===========================All =========================================
+	@Override
 	public List<PaymentResponse> getAllPayment(){
 		
 		List<Payment> payment = paymentRepository.findAll();
@@ -58,6 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	//=============================BY ID =======================================
+	@Override
 	public PaymentResponse getPaymentById(Long id ) {
 		
 		Payment payment = paymentRepository.findById(id)
@@ -69,6 +72,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	//==============================UPDATE========================================
+	@Override
 	public PaymentResponse updatePayment(Long id , PaymentRequest request) {
 		
 		Payment payment = paymentRepository.findById(id)
@@ -92,6 +96,7 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	
 	//============================DELETE====================================
+	@Override
 	public void deletePayment(Long id) {
 		
 		Payment payment = paymentRepository.findById(id)
@@ -101,7 +106,7 @@ public class PaymentServiceImpl implements PaymentService {
 		paymentRepository.delete(payment);
 		
 	}
-	
+	//======================TOMAPPER==============================================
 	private PaymentResponse toMapper(Payment payment) {
 		
 		return new PaymentResponse(

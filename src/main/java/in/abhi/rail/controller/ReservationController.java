@@ -56,4 +56,10 @@ public class ReservationController {
 		
 		reservationService.deleteReservation(id);
 	}
+	
+	@PutMapping("/{id}/cancle")
+	public ReservationResponse cancelReservation(@PathVariable Long id) {
+		
+		return reservationService.cancelReservation(id);
+	}
 }

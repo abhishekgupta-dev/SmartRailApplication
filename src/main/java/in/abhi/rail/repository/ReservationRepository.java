@@ -6,4 +6,5 @@ import in.abhi.rail.entity.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 
+	
 }

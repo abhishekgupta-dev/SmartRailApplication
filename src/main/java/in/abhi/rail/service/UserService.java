@@ -2,6 +2,7 @@ package in.abhi.rail.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import in.abhi.rail.DTO.UserRequest;
@@ -15,8 +16,12 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	
-	public UserService(UserRepository userRepository) {
+	private final PasswordEncoder passwordEncoder;
+	
+	public UserService(UserRepository userRepository,
+			PasswordEncoder passwordEncoder) {
 		this.userRepository=userRepository;
+		this.passwordEncoder=passwordEncoder;
 	}
 	
 	public UserResponse saveUser(UserRequest request) {
@@ -25,7 +30,10 @@ public class UserService {
 		
 		user.setName(request.getName());
 		user.setEmail(request.getEmail());
-		user.setPassword(request.getPassword());
+		user.setPassword(
+				passwordEncoder.encode(request.getPassword())
+				);
+		user.setRole("USER");
 		
 		User savedUser =  userRepository.save(user);
 		return new UserResponse(
@@ -73,7 +81,8 @@ public class UserService {
 		
 		user.setName(request.getName());
 		user.setEmail(request.getEmail());
-		user.setPassword(request.getPassword());
+		user.setPassword(
+				passwordEncoder.encode(request.getPassword()));
 		
 		User userUpdate = userRepository.save(user);
 	
